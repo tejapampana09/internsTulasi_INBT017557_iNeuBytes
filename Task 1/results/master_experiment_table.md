@@ -1,0 +1,14 @@
+| Experiment                         | Test Accuracy   | Train-Val Gap   |   Parameter Count | Training Time   |
+|:-----------------------------------|:----------------|:----------------|------------------:|:----------------|
+| Baseline (No Reg, No Aug)          | 46.79%          | -3.89%          |           356,810 | 37.3s           |
+| Baseline + Dropout                 | 40.54%          | -8.53%          |           356,810 | 46.2s           |
+| Baseline + Batch Normalization     | 10.03%          | 54.98%          |           358,218 | 61.1s           |
+| Baseline + L2 Regularization       | 46.72%          | -4.51%          |           356,810 | 42.0s           |
+| Baseline + Light Augmentation      | 43.16%          | -1.36%          |           356,810 | 37.0s           |
+| Baseline + Moderate Augmentation   | 39.44%          | -5.04%          |           356,810 | 54.2s           |
+| Baseline + Aggressive Augmentation | 35.82%          | -5.44%          |           356,810 | 64.4s           |
+| SGD + Momentum (lr=0.01)           | 30.14%          | -4.86%          |           356,810 | 42.6s           |
+| RMSprop (lr=0.001)                 | 41.84%          | -2.14%          |           356,810 | 42.8s           |
+| Adam (lr=0.01)                     | 36.28%          | -4.32%          |           356,810 | 40.4s           |
+| Adam (lr=0.0001)                   | 35.78%          | -3.46%          |           356,810 | 45.0s           |
+| Deeper CNN (Extra Block)           | 43.18%          | -3.64%          |           653,386 | 67.3s           |
