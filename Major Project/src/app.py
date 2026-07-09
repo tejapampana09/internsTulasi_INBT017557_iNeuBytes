@@ -110,6 +110,53 @@ def get_gemini_recommendations(movie_title):
         print(f"Error calling Gemini API: {e}")
         return None
 
+def get_pollinations_recommendations(movie_title):
+    # Calls Pollinations AI whitelisted text API for keyless LLM recommendations
+    url = "https://text.pollinations.ai/"
+    
+    prompt = (
+        f"Recommend 10 movies similar to the movie \"{movie_title}\". "
+        "You must return ONLY a JSON array of objects, with no markdown code block formatting (no ```json or ```). "
+        "Each object in the array must contain the keys: "
+        "\"id\" (integer, starting from 1), \"title\" (string), \"genres\" (JSON array of strings), "
+        "\"overview\" (string), and \"vote_average\" (float from 1.0 to 10.0)."
+    )
+    
+    payload = {
+        "messages": [
+            {"role": "system", "content": "You are a movie recommendation assistant. You return ONLY a raw JSON array of recommendation objects, with no markdown formatting, backticks, or conversational introduction."},
+            {"role": "user", "content": prompt}
+        ]
+    }
+    
+    headers = {"Content-Type": "application/json"}
+    
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=12.0)
+        if response.status_code == 200:
+            generated_text = response.text.strip()
+            
+            # Clean markdown code blocks if present
+            if "```" in generated_text:
+                parts = generated_text.split("```")
+                # find the part that has JSON
+                for part in parts:
+                    part_clean = part.strip()
+                    if part_clean.startswith("json"):
+                        part_clean = part_clean[4:].strip()
+                    if part_clean.startswith("["):
+                        generated_text = part_clean
+                        break
+            
+            recommendations = json.loads(generated_text)
+            if isinstance(recommendations, list):
+                return recommendations
+        print(f"Pollinations AI returned status code {response.status_code}: {response.text}")
+        return None
+    except Exception as e:
+        print(f"Error calling Pollinations AI: {e}")
+        return None
+
 @app.route('/recommend', methods=['POST'])
 def recommend():
     # Required recommendation endpoint
@@ -148,21 +195,27 @@ def recommend():
         
         # ----------------------------------------------------
         # HYBRID DYNAMIC AI GENERATION INTEGRATION
-        # If the user has configured the GEMINI_API_KEY environment variable,
-        # we will fetch dynamic AI recommendations from Gemini 1.5.
-        # Otherwise, or if the API call fails, we fall back to our local model.
         # ----------------------------------------------------
         recommendations = None
         source_used = "SentenceTransformer Local Lookup"
         
+        # 1. Try Google Gemini API (if key is set)
         if GEMINI_API_KEY:
             print(f"Attempting to fetch Generative AI recommendations from Gemini for '{matched_title}'...")
             recommendations = get_gemini_recommendations(matched_title)
             if recommendations:
-                source_used = "Google Gemini 1.5 Generative AI API"
+                source_used = "Google Gemini 2.5 Generative AI API"
                 print("Successfully retrieved recommendations from Gemini API.")
                 
-        # Fallback to local lookup if Gemini was not active or failed
+        # 2. Try Pollinations AI Whitelisted LLM (if Gemini was not configured or failed)
+        if not recommendations:
+            print(f"Attempting to fetch Generative AI recommendations from Pollinations AI for '{matched_title}'...")
+            recommendations = get_pollinations_recommendations(matched_title)
+            if recommendations:
+                source_used = "Pollinations AI (Llama-3/Qwen) Whitelisted LLM"
+                print("Successfully retrieved recommendations from Pollinations AI.")
+                
+        # 3. Fallback to local lookup if all LLM options failed
         if not recommendations:
             print("Falling back to local SentenceTransformer lookup dictionary...")
             matched_row = metadata[metadata['title'] == matched_title].iloc[0]
