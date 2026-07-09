@@ -1,0 +1,11 @@
+| Experiment                                       | Test Accuracy   | Precision (Macro)   | Recall (Macro)   | F1-score (Macro)   | Train-Val Gap   |   Parameter Count | Training Time   |
+|:-------------------------------------------------|:----------------|:--------------------|:-----------------|:-------------------|:----------------|------------------:|:----------------|
+| Logistic Regression (TF-IDF 10k, Unigram)        | 86.08%          | 86.10%              | 86.08%           | 86.08%             | +8.82%          |            10,001 | 0.2s            |
+| Linear SVM (TF-IDF 10k, Unigram)                 | 84.76%          | 84.76%              | 84.76%           | 84.76%             | +15.02%         |            10,001 | 0.2s            |
+| Logistic Regression (TF-IDF 10k, Unigram+Bigram) | 86.08%          | 86.10%              | 86.08%           | 86.08%             | +9.16%          |            10,001 | 1.3s            |
+| Logistic Regression (TF-IDF 5k, Unigram)         | 85.80%          | 85.83%              | 85.80%           | 85.80%             | +8.06%          |             5,001 | 0.4s            |
+| LSTM (Trainable Embedding from Scratch)          | 70.80%          | 75.03%              | 70.80%           | 69.51%             | +6.40%          |           531,553 | 244.6s          |
+| LSTM (Pre-trained GloVe Embeddings)              | 51.96%          | 71.26%              | 51.96%           | 37.86%             | +1.62%          |           531,553 | 233.9s          |
+| LSTM (Dropout = 0.0)                             | 76.04%          | 78.03%              | 76.04%           | 75.61%             | +12.94%         |           531,553 | 342.8s          |
+| LSTM (Dropout = 0.5)                             | 51.00%          | 51.88%              | 51.00%           | 44.51%             | +7.60%          |           531,553 | 207.0s          |
+| LSTM (Capacity = 128 units)                      | 69.36%          | 69.37%              | 69.36%           | 69.36%             | +4.12%          |           599,969 | 322.3s          |

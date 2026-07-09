@@ -1,0 +1,37 @@
+[
+    {
+        "index": 2,
+        "text": "Well, it has to be said that Monster Man is a huge mess of a film, but somehow multiple different genres and a clich\u00e9d plot come together to make one of the most enjoyable modern horror films I've seen in ages! The two biggest styles that the film mixes are a 'Road Trip' style teenage comedy and a 'Texas Chainsaw Massacre' style redneck horror vibe, and while one gets in the way of the other quite often; director Michael Davis manages to keep things moving thanks to the fact that the constant shift in tone means that we're never quite sure where the film is going to be taken next. Things start out worryingly as we're introduced to two characters, both irritating in different ways. Adam is a wussy virgin, while Harley is a fat big-mouthed \"A-hole\". They're both driving across the desert to attend the wedding of some chick they both liked in high school. After a couple of strange events, they pick up a hitch-hiker, and then find themselves being chased by some maniac in a monster truck for reasons unknown...<br /><br />The idea of someone being chased by someone else in a bigger vehicle is hardly original, but the way the monster truck is used here is one of the film's biggest assets. The truck itself looks spooky because it's so haggard and rusty, and the fact that it bounces around the screen makes the unfolding action exciting and suspenseful. After a while, you begin to get used to the characters and once Aimee Brooks enters the fray, things start to look up. The teen comedy side of the movie actually works pretty well, as Justin Ulrich is always on hand to deliver some entertaining lines of dialogue and the scenes between the dorky virgin and the hot female hitch-hiker are interesting enough. Just when you think the film couldn't possibly get any messier, things take a turn for the weird in the final third. Without spoiling things, it has to be said that Monster Man features the sort of ending that couldn't possibly be seen coming, and along with the twist, is a big surprise. Some people may feel ripped off by the sudden turn at the end - but I actually thought it worked quite well as it fits the film in that nothing here really fits... Overall, this isn't a 'great' film by any means - but if you're looking for some silly entertainment, Monster Man should hit the spot!",
+        "true_label": 1,
+        "pred_label": 0,
+        "category": "Long-Range Context"
+    },
+    {
+        "index": 4,
+        "text": "I rented this movie without having heard (or read) anything about it. What a shame! This movie is intelligent, witty, hilarious, fast-paced, and realistically ridiculous. The characters manage to get developed without relying too heavily on clich\u00e9d, tired stereotypes. It was refreshing to watch. I couldn't help thinking that marketing would have helped lob this not-so-mainstream movie into the starved-for-intelligent-comedy mainstream. The quality of the dialogue and the ease with which the actors execute a huge range of awkwardness, heartbreak and comedy is so rare these days--I felt that the actors must have really enjoyed participating in something this rich. How is it that National Treasure was number one at the box office for three weeks in a row--it is so weak in too many ways to mention. I guess I'm just happy that movies like \"Seeing..\" are still being made somewhere out there.",
+        "true_label": 1,
+        "pred_label": 0,
+        "category": "General"
+    },
+    {
+        "index": 22,
+        "text": "Hunt for Justice is about the setup of Slobadon Milosevic for his trial in the Hague. While it was a little too clinical in presentation the subject matter could have gotten very depressing very quickly. A Canadian Judge, Louise Arbour, becomes the Chief War Crimes Prosecutor at the International Criminal Tribunal for the UN in Yugoslavia. She battles everyone to pull out the evidence that sent Milosevic to trial. Not a bad docu-drama with class A directing and production work. The 'evidence' was disturbing by the shear discussion of the facts, happily they didn't go into too much detail and no real pictures of the tortured.",
+        "true_label": 1,
+        "pred_label": 0,
+        "category": "Negation"
+    },
+    {
+        "index": 95,
+        "text": "I have recently gone to the movie theatres to see the new (2007) version of Bridge to Teribithia. After, I went to the library to rent the older version to see it again without paying again. I must say that I was extremely disappointed! I found the older version to have horrible acting as well as corny lines including Jessie saying, \"I know Daddy, but I hurt so much inside\" after Leslie dies. It was quite horribly done and the casting was not much better in my opinion. I watched in amazement all the while saying no wonder they remade it. The story is great but trust me spend the money and see the new version, if you just see the old one you may never experience the true magic of Teribithia.",
+        "true_label": 0,
+        "pred_label": 1,
+        "category": "Sarcasm / Irony"
+    },
+    {
+        "index": 5,
+        "text": "quite good, don't expect anything high culture.......the acting is bad, the storyline fails, but it is still a fairly nice movie to watch. why? because it's dark, a little bit stupid, like unpredictable and just entertaining and fun to watch. do not expect anything, like i said, just see it for yourself and you know what i mean.<br /><br />it is a movie, without a plot or memorable acting, but there are enough scenes that will make you laugh, cry or at least make you feel compelled to watch it to the end...<br /><br />this is all i wanted to say....<br /><br />7 / 10",
+        "true_label": 1,
+        "pred_label": 0,
+        "category": "General"
+    }
+]
