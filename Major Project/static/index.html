@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMatch AI | Precision Movie Recommendations</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Glow Elements -->
+    <div class="glow-bg glow-purple"></div>
+    <div class="glow-bg glow-cyan"></div>
+
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-clapperboard logo-icon"></i>
+            <span>CineMatch <span class="accent-text">AI</span></span>
+        </div>
+        <div class="system-status" id="system-status">
+            <span class="status-dot"></span>
+            <span id="status-text">Connecting...</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Discover Your Next <span class="gradient-text">Cinematic Journey</span></h1>
+            <p class="subtitle">Enter a movie you love, and our TF-IDF powered NLP recommendation engine will analyze genres, synopses, and metadata to curate 10 personalized recommendations.</p>
+        </section>
+
+        <!-- Search Control Panel -->
+        <section class="search-panel">
+            <div class="glass-card search-card">
+                <form id="recommend-form" autocomplete="off">
+                    <div class="input-group">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="movie-input" placeholder="Type a movie title (e.g., Inception, The Dark Knight)..." required>
+                        <button type="submit" id="submit-btn" disabled>
+                            <span>Get Recommendations</span>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </button>
+                    </div>
+                    <!-- Autocomplete Suggestions List -->
+                    <div class="suggestions-container" id="suggestions-box" style="display: none;"></div>
+                </form>
+            </div>
+            
+            <!-- Error Banner -->
+            <div class="error-banner" id="error-banner" style="display: none;">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="error-message"></span>
+            </div>
+        </section>
+
+        <!-- Results / Loading Section -->
+        <section class="results-section">
+            <!-- Loading Spinner -->
+            <div class="loader-container" id="loader" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing metadata similarities...</p>
+            </div>
+
+            <!-- Recommendation Display Header -->
+            <div class="results-header" id="results-header" style="display: none;">
+                <h2>Recommendations based on: <span id="query-matched-title" class="accent-text"></span></h2>
+            </div>
+
+            <!-- Recommendations Grid -->
+            <div class="recommendations-grid" id="recommendations-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CineMatch AI. Built for iNeuBytes Major Full-Stack AI Project. Course ID: AIINB20626.</p>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
