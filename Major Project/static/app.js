@@ -166,6 +166,7 @@ async function getRecommendations(title) {
 function parseGenres(genresStr) {
     try {
         if (!genresStr) return [];
+        if (Array.isArray(genresStr)) return genresStr;
         // Replace single quotes with double quotes to make it valid JSON if needed
         const clean = genresStr.replace(/'/g, '"');
         return JSON.parse(clean);
