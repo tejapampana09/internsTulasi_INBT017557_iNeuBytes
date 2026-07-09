@@ -62,7 +62,7 @@ def get_movies():
         return jsonify({"error": "Model not loaded"}), 500
         
     metadata = model_artifacts['metadata']
-    movies_list = [{"id": int(row['id']), "title": str(row['title'])} for _, row in metadata.iterrows()]
+    movies_list = [{"id": int(row['id']), "title": str(row['title'])} for row in metadata]
     return jsonify(movies_list), 200
 
 def get_gemini_recommendations(movie_title):
@@ -182,7 +182,7 @@ def recommend():
         lookup = model_artifacts['lookup']
         
         # Match using difflib for robust close-match search
-        all_titles = metadata['title'].tolist()
+        all_titles = [m['title'] for m in metadata]
         close_matches = difflib.get_close_matches(query_title, all_titles, n=1, cutoff=0.5)
         
         if not close_matches:
@@ -218,13 +218,13 @@ def recommend():
         # 3. Fallback to local lookup if all LLM options failed
         if not recommendations:
             print("Falling back to local SentenceTransformer lookup dictionary...")
-            matched_row = metadata[metadata['title'] == matched_title].iloc[0]
+            matched_row = next(m for m in metadata if m['title'] == matched_title)
             matched_id = int(matched_row['id'])
             recommended_indices = lookup.get(matched_id, [])
             
             recommendations = []
             for idx in recommended_indices:
-                rec_row = metadata.iloc[idx]
+                rec_row = metadata[idx]
                 recommendations.append({
                     "id": int(rec_row['id']),
                     "title": str(rec_row['title']),
