@@ -135,6 +135,20 @@ async function getRecommendations(title) {
         queryMatchedTitle.textContent = data.matched_title;
         resultsHeader.style.display = 'block';
         
+        // Update Source Badge
+        const aiSourceBadge = document.getElementById('ai-source-badge');
+        if (aiSourceBadge) {
+            aiSourceBadge.textContent = `Engine: ${data.recommendations_source}`;
+            aiSourceBadge.className = 'source-badge'; // reset
+            if (data.recommendations_source.includes("Gemini")) {
+                aiSourceBadge.classList.add('gemini');
+            } else if (data.recommendations_source.includes("Pollinations")) {
+                aiSourceBadge.classList.add('pollinations');
+            } else {
+                aiSourceBadge.classList.add('fallback');
+            }
+        }
+        
         if (data.recommendations.length === 0) {
             recommendationsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-secondary);">No similar movies found.</p>`;
             return;
