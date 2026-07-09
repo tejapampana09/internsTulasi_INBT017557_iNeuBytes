@@ -132,7 +132,7 @@ def get_pollinations_recommendations(movie_title):
     headers = {"Content-Type": "application/json"}
     
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=12.0)
+        response = requests.post(url, json=payload, headers=headers, timeout=30.0)
         if response.status_code == 200:
             generated_text = response.text.strip()
             
