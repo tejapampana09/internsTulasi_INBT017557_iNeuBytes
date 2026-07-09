@@ -49,7 +49,7 @@ def health():
     
     if gemini_active:
         try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key={GEMINI_API_KEY}"
             res = requests.post(url, json={"contents": [{"parts": [{"text": "Hello"}]}]}, timeout=5.0)
             gemini_test_status = res.status_code
             if res.status_code != 200:
@@ -108,7 +108,7 @@ def get_gemini_recommendations(movie_title):
     if not GEMINI_API_KEY:
         return None
         
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key={GEMINI_API_KEY}"
     
     prompt = (
         f"Recommend 10 movies similar to the movie \"{movie_title}\". "
@@ -303,7 +303,7 @@ def recommend():
             print(f"Attempting to fetch Generative AI recommendations from Gemini for '{query_title}'...")
             recommendations = get_gemini_recommendations(query_title)
             if recommendations:
-                source_used = "Google Gemini 2.5 Generative AI API"
+                source_used = "Google Gemini 3.1 Flash Lite Generative AI API"
                 print("Successfully retrieved recommendations from Gemini API.")
                 
         # 2. Try OpenRouter API (if key is set)
