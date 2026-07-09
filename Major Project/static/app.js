@@ -142,6 +142,8 @@ async function getRecommendations(title) {
             aiSourceBadge.className = 'source-badge'; // reset
             if (data.recommendations_source.includes("Gemini")) {
                 aiSourceBadge.classList.add('gemini');
+            } else if (data.recommendations_source.includes("OpenRouter")) {
+                aiSourceBadge.classList.add('openrouter');
             } else if (data.recommendations_source.includes("Pollinations")) {
                 aiSourceBadge.classList.add('pollinations');
             } else {

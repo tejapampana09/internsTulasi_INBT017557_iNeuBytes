@@ -10,6 +10,7 @@ app = Flask(__name__, static_folder='../static', static_url_path='')
 # Global variable to hold loaded model artifacts
 model_artifacts = None
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 def load_model():
     global model_artifacts
@@ -177,6 +178,63 @@ def get_pollinations_recommendations(movie_title):
         print(f"Error calling Pollinations AI: {e}")
         return None
 
+def get_openrouter_recommendations(movie_title):
+    # Calls OpenRouter API for Llama-3-8B-Instruct recommendations
+    if not OPENROUTER_API_KEY:
+        return None
+        
+    url = "https://openrouter.ai/api/v1/chat/completions"
+    
+    prompt = (
+        f"Recommend 10 movies similar to the movie \"{movie_title}\". "
+        "You must return ONLY a JSON array of objects, with no markdown code block formatting (no ```json or ```). "
+        "Each object in the array must contain the keys: "
+        "\"id\" (integer, starting from 1), \"title\" (string), \"genres\" (JSON array of strings), "
+        "\"overview\" (string), and \"vote_average\" (float from 1.0 to 10.0)."
+    )
+    
+    payload = {
+        "model": "meta-llama/llama-3-8b-instruct:free",
+        "messages": [
+            {"role": "system", "content": "You are a movie recommendation assistant. You return ONLY a raw JSON array of recommendation objects. Do not include markdown formatting or backticks."},
+            {"role": "user", "content": prompt}
+        ],
+        "response_format": {"type": "json_object"}
+    }
+    
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=15.0)
+        if response.status_code == 200:
+            res_data = response.json()
+            generated_text = res_data['choices'][0]['message']['content'].strip()
+            
+            # Clean markdown code blocks if present
+            if "```" in generated_text:
+                parts = generated_text.split("```")
+                for part in parts:
+                    part_clean = part.strip()
+                    if part_clean.startswith("json"):
+                        part_clean = part_clean[4:].strip()
+                    if part_clean.startswith("["):
+                        generated_text = part_clean
+                        break
+            
+            recommendations = json.loads(generated_text)
+            if isinstance(recommendations, list):
+                return recommendations
+            elif isinstance(recommendations, dict) and 'recommendations' in recommendations:
+                return recommendations['recommendations']
+        print(f"OpenRouter API returned status code {response.status_code}: {response.text}")
+        return None
+    except Exception as e:
+        print(f"Error calling OpenRouter API: {e}")
+        return None
+
 @app.route('/recommend', methods=['POST'])
 def recommend():
     # Required recommendation endpoint
@@ -227,7 +285,15 @@ def recommend():
                 source_used = "Google Gemini 2.5 Generative AI API"
                 print("Successfully retrieved recommendations from Gemini API.")
                 
-        # 2. Try Pollinations AI Whitelisted LLM (if Gemini was not configured or failed)
+        # 2. Try OpenRouter API (if key is set)
+        if not recommendations and OPENROUTER_API_KEY:
+            print(f"Attempting to fetch Generative AI recommendations from OpenRouter for '{matched_title}'...")
+            recommendations = get_openrouter_recommendations(matched_title)
+            if recommendations:
+                source_used = "OpenRouter Llama-3-8B Generative AI API"
+                print("Successfully retrieved recommendations from OpenRouter API.")
+
+        # 3. Try Pollinations AI Whitelisted LLM (if Gemini/OpenRouter failed or were not configured)
         if not recommendations:
             print(f"Attempting to fetch Generative AI recommendations from Pollinations AI for '{matched_title}'...")
             recommendations = get_pollinations_recommendations(matched_title)
