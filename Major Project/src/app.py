@@ -1,12 +1,15 @@
 import os
 import pickle
 import difflib
+import requests
+import json
 from flask import Flask, request, jsonify
 
 app = Flask(__name__, static_folder='../static', static_url_path='')
 
 # Global variable to hold loaded model artifacts
 model_artifacts = None
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 def load_model():
     global model_artifacts
@@ -36,12 +39,15 @@ def home():
 @app.route('/health', methods=['GET'])
 def health():
     # Required health endpoint
+    gemini_active = GEMINI_API_KEY is not None and len(GEMINI_API_KEY.strip()) > 0
+    
     if model_artifacts is not None:
         return jsonify({
             "status": "OK",
-            "model": "TF-IDF Content-Based Filtering",
+            "model_fallback": "SentenceTransformer Semantic Search",
+            "gemini_api_integrated": gemini_active,
             "dataset_movies_count": len(model_artifacts['metadata']),
-            "message": "Full-stack Recommendation service is running."
+            "message": "Full-stack hybrid recommendation service is running."
         }), 200
     else:
         return jsonify({
@@ -58,6 +64,51 @@ def get_movies():
     metadata = model_artifacts['metadata']
     movies_list = [{"id": int(row['id']), "title": str(row['title'])} for _, row in metadata.iterrows()]
     return jsonify(movies_list), 200
+
+def get_gemini_recommendations(movie_title):
+    # Calls Google's Gemini API for dynamic LLM movie recommendations
+    if not GEMINI_API_KEY:
+        return None
+        
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    
+    prompt = (
+        f"Recommend 10 movies similar to the movie \"{movie_title}\". "
+        "You must return a JSON array of objects. Each object in the array must contain the keys: "
+        "\"id\" (integer, starting from 1), \"title\" (string), \"genres\" (JSON array of strings), "
+        "\"overview\" (string), and \"vote_average\" (float from 1.0 to 10.0)."
+    )
+    
+    payload = {
+        "contents": [{
+            "parts": [{
+                "text": prompt
+            }]
+        }],
+        "generationConfig": {
+            "responseMimeType": "application/json"
+        }
+    }
+    
+    headers = {"Content-Type": "application/json"}
+    
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=6.0)
+        if response.status_code == 200:
+            res_data = response.json()
+            generated_text = res_data['candidates'][0]['content']['parts'][0]['text']
+            recommendations = json.loads(generated_text)
+            
+            # Ensure the output is indeed a list of recommendations
+            if isinstance(recommendations, list):
+                return recommendations
+            elif isinstance(recommendations, dict) and 'recommendations' in recommendations:
+                return recommendations['recommendations']
+        print(f"Gemini API returned status code {response.status_code}: {response.text}")
+        return None
+    except Exception as e:
+        print(f"Error calling Gemini API: {e}")
+        return None
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
@@ -94,33 +145,50 @@ def recommend():
             }), 404
             
         matched_title = close_matches[0]
-        # Find row corresponding to matched title
-        matched_row = metadata[metadata['title'] == matched_title].iloc[0]
-        matched_id = int(matched_row['id'])
         
-        # Get recommendations
-        recommended_indices = lookup.get(matched_id, [])
-        recommendations = []
+        # ----------------------------------------------------
+        # HYBRID DYNAMIC AI GENERATION INTEGRATION
+        # If the user has configured the GEMINI_API_KEY environment variable,
+        # we will fetch dynamic AI recommendations from Gemini 1.5.
+        # Otherwise, or if the API call fails, we fall back to our local model.
+        # ----------------------------------------------------
+        recommendations = None
+        source_used = "SentenceTransformer Local Lookup"
         
-        for idx in recommended_indices:
-            rec_row = metadata.iloc[idx]
-            recommendations.append({
-                "id": int(rec_row['id']),
-                "title": str(rec_row['title']),
-                "genres": str(rec_row['genres']),
-                "overview": str(rec_row['overview']),
-                "vote_average": float(rec_row['vote_average'])
-            })
+        if GEMINI_API_KEY:
+            print(f"Attempting to fetch Generative AI recommendations from Gemini for '{matched_title}'...")
+            recommendations = get_gemini_recommendations(matched_title)
+            if recommendations:
+                source_used = "Google Gemini 1.5 Generative AI API"
+                print("Successfully retrieved recommendations from Gemini API.")
+                
+        # Fallback to local lookup if Gemini was not active or failed
+        if not recommendations:
+            print("Falling back to local SentenceTransformer lookup dictionary...")
+            matched_row = metadata[metadata['title'] == matched_title].iloc[0]
+            matched_id = int(matched_row['id'])
+            recommended_indices = lookup.get(matched_id, [])
             
+            recommendations = []
+            for idx in recommended_indices:
+                rec_row = metadata.iloc[idx]
+                recommendations.append({
+                    "id": int(rec_row['id']),
+                    "title": str(rec_row['title']),
+                    "genres": str(rec_row['genres']),
+                    "overview": str(rec_row['overview']),
+                    "vote_average": float(rec_row['vote_average'])
+                })
+                
         return jsonify({
             "query_submitted": query_title,
             "matched_title": matched_title,
+            "recommendations_source": source_used,
             "recommendations_count": len(recommendations),
             "recommendations": recommendations
         }), 200
         
     except Exception as e:
-        # Robust error handling: prevent server crash and return clean JSON
         return jsonify({
             "error": "Internal Server Error",
             "message": f"An error occurred while processing your request: {str(e)}"
