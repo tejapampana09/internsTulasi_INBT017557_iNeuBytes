@@ -284,15 +284,12 @@ def recommend():
         
         # Match using difflib for robust close-match search
         all_titles = [m['title'] for m in metadata]
-        close_matches = difflib.get_close_matches(query_title, all_titles, n=1, cutoff=0.5)
+        # Raised cutoff to 0.65 to prevent false matches like "Baahubali" -> "Bambi"
+        close_matches = difflib.get_close_matches(query_title, all_titles, n=1, cutoff=0.65)
         
-        if not close_matches:
-            return jsonify({
-                "error": "Not Found",
-                "message": f"No matches found for '{query_title}'. Please try another search term."
-            }), 404
-            
-        matched_title = close_matches[0]
+        # If no close match in local dataset, still allow LLM to handle it
+        matched_title = close_matches[0] if close_matches else query_title
+        in_local_dataset = len(close_matches) > 0
         
         # ----------------------------------------------------
         # HYBRID DYNAMIC AI GENERATION INTEGRATION
@@ -301,31 +298,32 @@ def recommend():
         source_used = "SentenceTransformer Local Lookup"
         
         # 1. Try Google Gemini API (if key is set)
+        # Always use original query_title for LLM (works for ANY movie, even ones not in our dataset)
         if GEMINI_API_KEY:
-            print(f"Attempting to fetch Generative AI recommendations from Gemini for '{matched_title}'...")
-            recommendations = get_gemini_recommendations(matched_title)
+            print(f"Attempting to fetch Generative AI recommendations from Gemini for '{query_title}'...")
+            recommendations = get_gemini_recommendations(query_title)
             if recommendations:
                 source_used = "Google Gemini 2.5 Generative AI API"
                 print("Successfully retrieved recommendations from Gemini API.")
                 
         # 2. Try OpenRouter API (if key is set)
         if not recommendations and OPENROUTER_API_KEY:
-            print(f"Attempting to fetch Generative AI recommendations from OpenRouter for '{matched_title}'...")
-            recommendations = get_openrouter_recommendations(matched_title)
+            print(f"Attempting to fetch Generative AI recommendations from OpenRouter for '{query_title}'...")
+            recommendations = get_openrouter_recommendations(query_title)
             if recommendations:
                 source_used = "OpenRouter Llama-3.3-70B Generative AI API"
                 print("Successfully retrieved recommendations from OpenRouter API.")
 
         # 3. Try Pollinations AI Whitelisted LLM (if Gemini/OpenRouter failed or were not configured)
         if not recommendations:
-            print(f"Attempting to fetch Generative AI recommendations from Pollinations AI for '{matched_title}'...")
-            recommendations = get_pollinations_recommendations(matched_title)
+            print(f"Attempting to fetch Generative AI recommendations from Pollinations AI for '{query_title}'...")
+            recommendations = get_pollinations_recommendations(query_title)
             if recommendations:
                 source_used = "Pollinations AI (Llama-3/Qwen) Whitelisted LLM"
                 print("Successfully retrieved recommendations from Pollinations AI.")
                 
-        # 3. Fallback to local lookup if all LLM options failed
-        if not recommendations:
+        # 4. Fallback to local lookup ONLY if movie is in our dataset
+        if not recommendations and in_local_dataset:
             print("Falling back to local SentenceTransformer lookup dictionary...")
             matched_row = next(m for m in metadata if m['title'] == matched_title)
             matched_id = int(matched_row['id'])
@@ -341,6 +339,13 @@ def recommend():
                     "overview": str(rec_row['overview']),
                     "vote_average": float(rec_row['vote_average'])
                 })
+        
+        # If still no recommendations and movie was not in dataset, return helpful error
+        if not recommendations and not in_local_dataset:
+            return jsonify({
+                "error": "Not Found",
+                "message": f"'{query_title}' is not in our movie database and all AI services are temporarily busy. Please try again in a few minutes, or try a Hollywood movie title."
+            }), 404
                 
         return jsonify({
             "query_submitted": query_title,
