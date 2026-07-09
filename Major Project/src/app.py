@@ -209,11 +209,11 @@ def get_openrouter_recommendations(movie_title):
     url = "https://openrouter.ai/api/v1/chat/completions"
     
     prompt = (
-        f"Recommend 10 movies similar to the movie \"{movie_title}\". "
-        "You must return ONLY a JSON array of objects, with no markdown code block formatting (no ```json or ```). "
-        "Each object in the array must contain the keys: "
-        "\"id\" (integer, starting from 1), \"title\" (string), \"genres\" (JSON array of strings), "
-        "\"overview\" (string), and \"vote_average\" (float from 1.0 to 10.0)."
+        f"Recommend 5 movies similar to \"{movie_title}\". "
+        "Return ONLY a raw JSON array. No markdown, no backticks, no explanation. "
+        "Each object must have exactly these keys: "
+        "\"id\" (int starting from 1), \"title\" (string), \"genres\" (array of strings), "
+        "\"overview\" (string, max 100 words), \"vote_average\" (float 1.0-10.0)."
     )
     
     payload = {
