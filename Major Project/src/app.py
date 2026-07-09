@@ -44,6 +44,8 @@ def health():
     openrouter_active = OPENROUTER_API_KEY is not None and len(OPENROUTER_API_KEY.strip()) > 0
     gemini_test_status = "N/A"
     gemini_test_error = "N/A"
+    openrouter_test_status = "N/A"
+    openrouter_test_error = "N/A"
     
     if gemini_active:
         try:
@@ -55,6 +57,23 @@ def health():
         except Exception as e:
             gemini_test_error = str(e)
             
+    if openrouter_active:
+        try:
+            url = "https://openrouter.ai/api/v1/chat/completions"
+            headers = {
+                "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+                "Content-Type": "application/json"
+            }
+            res = requests.post(url, json={
+                "model": "meta-llama/llama-3-8b-instruct:free",
+                "messages": [{"role": "user", "content": "Hello"}]
+            }, headers=headers, timeout=5.0)
+            openrouter_test_status = res.status_code
+            if res.status_code != 200:
+                openrouter_test_error = res.text[:200]
+        except Exception as e:
+            openrouter_test_error = str(e)
+            
     if model_artifacts is not None:
         return jsonify({
             "status": "OK",
@@ -63,6 +82,8 @@ def health():
             "gemini_test_status": gemini_test_status,
             "gemini_test_error": gemini_test_error,
             "openrouter_api_integrated": openrouter_active,
+            "openrouter_test_status": openrouter_test_status,
+            "openrouter_test_error": openrouter_test_error,
             "dataset_movies_count": len(model_artifacts['metadata']),
             "message": "Full-stack hybrid recommendation service is running."
         }), 200
