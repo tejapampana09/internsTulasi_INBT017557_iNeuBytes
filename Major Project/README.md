@@ -3,7 +3,7 @@
 CineMatch AI is a full-stack content-based movie recommendation system that analyzes metadata similarities (genres, plot descriptions) to suggest matching films. It satisfies the **iNeuBytes Major Project** requirements, including dataset constraints, backend API structure, and responsive glassmorphism UI.
 
 ## 🚀 Live Demo & Repository
-* **Live Deployed Web Application**: http://teja69.pythonanywhere.com
+* **Live Deployed Web Application**: https://interns-tulasi-inbt-017557-i-neu-by-five.vercel.app/
 * **GitHub Repository**: [internsTulasi_INBT017557_iNeuBytes](https://github.com/tejapampana09/internsTulasi_INBT017557_iNeuBytes)
 
 ---
