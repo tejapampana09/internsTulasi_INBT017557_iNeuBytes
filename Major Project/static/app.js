@@ -142,7 +142,7 @@ async function getRecommendations(title) {
             aiSourceBadge.className = 'source-badge'; // reset
             if (data.recommendations_source.includes("Gemini")) {
                 aiSourceBadge.classList.add('gemini');
-            } else if (data.recommendations_source.includes("OpenRouter")) {
+            } else if (data.recommendations_source.includes("OpenRouter") || data.recommendations_source.includes("Nemotron")) {
                 aiSourceBadge.classList.add('openrouter');
             } else if (data.recommendations_source.includes("Pollinations")) {
                 aiSourceBadge.classList.add('pollinations');

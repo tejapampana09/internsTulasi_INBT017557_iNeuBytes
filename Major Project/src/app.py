@@ -65,7 +65,7 @@ def health():
                 "Content-Type": "application/json"
             }
             res = requests.post(url, json={
-                "model": "meta-llama/llama-3.3-70b-instruct:free",
+                "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
                 "messages": [{"role": "user", "content": "Hello"}]
             }, headers=headers, timeout=5.0)
             openrouter_test_status = res.status_code
@@ -217,7 +217,7 @@ def get_openrouter_recommendations(movie_title):
     )
     
     payload = {
-        "model": "meta-llama/llama-3.3-70b-instruct:free",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
         "messages": [
             {"role": "system", "content": "You are a movie recommendation assistant. You return ONLY a raw JSON array of recommendation objects. Do not include markdown formatting or backticks."},
             {"role": "user", "content": prompt}
@@ -311,7 +311,7 @@ def recommend():
             print(f"Attempting to fetch Generative AI recommendations from OpenRouter for '{query_title}'...")
             recommendations = get_openrouter_recommendations(query_title)
             if recommendations:
-                source_used = "OpenRouter Llama-3.3-70B Generative AI API"
+                source_used = "OpenRouter NVIDIA Nemotron Ultra 550B API"
                 print("Successfully retrieved recommendations from OpenRouter API.")
 
         # 3. Try Pollinations AI Whitelisted LLM (if Gemini/OpenRouter failed or were not configured)
