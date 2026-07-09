@@ -65,9 +65,9 @@ def health():
                 "Content-Type": "application/json"
             }
             res = requests.post(url, json={
-                "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+                "model": "openai/gpt-oss-20b:free",
                 "messages": [{"role": "user", "content": "Hello"}]
-            }, headers=headers, timeout=5.0)
+            }, headers=headers, timeout=8.0)
             openrouter_test_status = res.status_code
             if res.status_code != 200:
                 openrouter_test_error = res.text[:200]
@@ -217,7 +217,7 @@ def get_openrouter_recommendations(movie_title):
     )
     
     payload = {
-        "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "model": "openai/gpt-oss-20b:free",
         "messages": [
             {"role": "system", "content": "You are a movie recommendation assistant. You return ONLY a raw JSON array of recommendation objects. Do not include markdown formatting or backticks."},
             {"role": "user", "content": prompt}
@@ -231,7 +231,7 @@ def get_openrouter_recommendations(movie_title):
     }
     
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=15.0)
+        response = requests.post(url, json=payload, headers=headers, timeout=30.0)
         if response.status_code == 200:
             res_data = response.json()
             generated_text = res_data['choices'][0]['message']['content'].strip()
@@ -311,7 +311,7 @@ def recommend():
             print(f"Attempting to fetch Generative AI recommendations from OpenRouter for '{query_title}'...")
             recommendations = get_openrouter_recommendations(query_title)
             if recommendations:
-                source_used = "OpenRouter NVIDIA Nemotron Ultra 550B API"
+                source_used = "OpenRouter GPT-OSS 20B Generative AI API"
                 print("Successfully retrieved recommendations from OpenRouter API.")
 
         # 3. Try Pollinations AI Whitelisted LLM (if Gemini/OpenRouter failed or were not configured)
