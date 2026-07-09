@@ -2,9 +2,11 @@ services:
   - type: web
     name: cinematch-ai
     env: python
-    rootDir: "Major Project"
+    rootDir: Major Project
     buildCommand: pip install -r requirements.txt
-    startCommand: python src/app.py
+    startCommand: gunicorn --chdir src app:app --bind 0.0.0.0:$PORT --timeout 120 --workers 1
     envVars:
-      - key: PORT
-        value: 5000
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
