@@ -70,7 +70,7 @@ def get_gemini_recommendations(movie_title):
     if not GEMINI_API_KEY:
         return None
         
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
     
     prompt = (
         f"Recommend 10 movies similar to the movie \"{movie_title}\". "
