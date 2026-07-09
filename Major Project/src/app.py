@@ -93,7 +93,7 @@ def get_gemini_recommendations(movie_title):
     headers = {"Content-Type": "application/json"}
     
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=6.0)
+        response = requests.post(url, json=payload, headers=headers, timeout=15.0)
         if response.status_code == 200:
             res_data = response.json()
             generated_text = res_data['candidates'][0]['content']['parts'][0]['text']
