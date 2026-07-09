@@ -41,6 +41,7 @@ def home():
 def health():
     # Required health endpoint with live diagnostics
     gemini_active = GEMINI_API_KEY is not None and len(GEMINI_API_KEY.strip()) > 0
+    openrouter_active = OPENROUTER_API_KEY is not None and len(OPENROUTER_API_KEY.strip()) > 0
     gemini_test_status = "N/A"
     gemini_test_error = "N/A"
     
@@ -61,6 +62,7 @@ def health():
             "gemini_api_integrated": gemini_active,
             "gemini_test_status": gemini_test_status,
             "gemini_test_error": gemini_test_error,
+            "openrouter_api_integrated": openrouter_active,
             "dataset_movies_count": len(model_artifacts['metadata']),
             "message": "Full-stack hybrid recommendation service is running."
         }), 200
