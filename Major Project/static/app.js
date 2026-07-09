@@ -192,7 +192,7 @@ function renderCards(movies) {
         genres.forEach(g => {
             const badge = document.createElement('span');
             badge.className = 'genre-badge';
-            badge.textContent = g;
+            badge.textContent = (typeof g === 'object' && g !== null && g.name) ? g.name : g;
             genresContainer.appendChild(badge);
         });
         card.appendChild(genresContainer);
