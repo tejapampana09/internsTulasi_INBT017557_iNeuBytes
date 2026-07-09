@@ -38,14 +38,28 @@ def home():
 
 @app.route('/health', methods=['GET'])
 def health():
-    # Required health endpoint
+    # Required health endpoint with live diagnostics
     gemini_active = GEMINI_API_KEY is not None and len(GEMINI_API_KEY.strip()) > 0
+    gemini_test_status = "N/A"
+    gemini_test_error = "N/A"
     
+    if gemini_active:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}"
+            res = requests.post(url, json={"contents": [{"parts": [{"text": "Hello"}]}]}, timeout=5.0)
+            gemini_test_status = res.status_code
+            if res.status_code != 200:
+                gemini_test_error = res.text[:200]
+        except Exception as e:
+            gemini_test_error = str(e)
+            
     if model_artifacts is not None:
         return jsonify({
             "status": "OK",
             "model_fallback": "SentenceTransformer Semantic Search",
             "gemini_api_integrated": gemini_active,
+            "gemini_test_status": gemini_test_status,
+            "gemini_test_error": gemini_test_error,
             "dataset_movies_count": len(model_artifacts['metadata']),
             "message": "Full-stack hybrid recommendation service is running."
         }), 200
