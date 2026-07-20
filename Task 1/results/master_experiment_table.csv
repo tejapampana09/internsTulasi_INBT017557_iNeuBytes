@@ -1,13 +1,13 @@
 Experiment,Test Accuracy,Train-Val Gap,Parameter Count,Training Time
-"Baseline (No Reg, No Aug)",46.79%,-3.89%,"356,810",37.3s
-Baseline + Dropout,40.54%,-8.53%,"356,810",46.2s
-Baseline + Batch Normalization,10.03%,54.98%,"358,218",61.1s
-Baseline + L2 Regularization,46.72%,-4.51%,"356,810",42.0s
-Baseline + Light Augmentation,43.16%,-1.36%,"356,810",37.0s
-Baseline + Moderate Augmentation,39.44%,-5.04%,"356,810",54.2s
-Baseline + Aggressive Augmentation,35.82%,-5.44%,"356,810",64.4s
-SGD + Momentum (lr=0.01),30.14%,-4.86%,"356,810",42.6s
-RMSprop (lr=0.001),41.84%,-2.14%,"356,810",42.8s
-Adam (lr=0.01),36.28%,-4.32%,"356,810",40.4s
-Adam (lr=0.0001),35.78%,-3.46%,"356,810",45.0s
-Deeper CNN (Extra Block),43.18%,-3.64%,"653,386",67.3s
+"Baseline (No Reg, No Aug)",74.14%,8.56%,"356,810",615.3s
+Baseline + Dropout,71.62%,-5.72%,"356,810",695.9s
+Baseline + Batch Normalization,72.78%,23.64%,"358,218",1160.9s
+Baseline + L2 Regularization,70.51%,5.89%,"356,810",616.4s
+Baseline + Light Augmentation,71.00%,5.54%,"356,810",696.9s
+Baseline + Moderate Augmentation,65.75%,-2.76%,"356,810",819.6s
+Baseline + Aggressive Augmentation,56.00%,-5.27%,"356,810",902.1s
+SGD + Momentum (lr=0.01),65.74%,3.97%,"356,810",569.2s
+RMSprop (lr=0.001),70.20%,5.29%,"356,810",624.3s
+Adam (lr=0.01),54.53%,3.05%,"356,810",663.0s
+Adam (lr=0.0001),57.60%,0.18%,"356,810",777.6s
+Deeper CNN (Extra Block),73.26%,10.04%,"653,386",1335.9s

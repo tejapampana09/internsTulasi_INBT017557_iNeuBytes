@@ -2,56 +2,56 @@
     "exp0": {
         "exp_id": "exp0",
         "exp_name": "Baseline (No Reg, No Aug)",
-        "test_accuracy": 0.46790000796318054,
-        "test_loss": 1.462439775466919,
-        "precision": 0.4744465761798091,
-        "recall": 0.46790000000000004,
-        "f1_score": 0.44531143455732447,
-        "train_val_gap": -0.0388999879360199,
+        "test_accuracy": 0.7414000034332275,
+        "test_loss": 0.7831655740737915,
+        "precision": 0.7395685755984238,
+        "recall": 0.7414000000000001,
+        "f1_score": 0.7382701213641091,
+        "train_val_gap": 0.08562499284744263,
         "parameter_count": 356810,
-        "training_time": 37.26112914085388,
+        "training_time": 615.3264436721802,
         "top_confused": [
             [
-                302,
+                171,
                 "cat",
                 "dog"
             ],
             [
-                257,
-                "deer",
-                "bird"
+                122,
+                "dog",
+                "cat"
             ],
             [
-                254,
-                "airplane",
-                "ship"
+                93,
+                "cat",
+                "bird"
             ]
         ]
     },
     "exp1": {
         "exp_id": "exp1",
         "exp_name": "Baseline + Dropout",
-        "test_accuracy": 0.40540000796318054,
-        "test_loss": 1.646126389503479,
-        "precision": 0.40602592814570276,
-        "recall": 0.40540000000000004,
-        "f1_score": 0.39559149069334887,
-        "train_val_gap": -0.08529999852180481,
+        "test_accuracy": 0.7161999940872192,
+        "test_loss": 0.8166493773460388,
+        "precision": 0.7154295779950368,
+        "recall": 0.7162,
+        "f1_score": 0.712023561274513,
+        "train_val_gap": -0.05715000629425049,
         "parameter_count": 356810,
-        "training_time": 46.24217343330383,
+        "training_time": 695.8749499320984,
         "top_confused": [
             [
-                378,
-                "airplane",
-                "ship"
+                159,
+                "cat",
+                "dog"
             ],
             [
-                272,
-                "truck",
-                "ship"
+                149,
+                "dog",
+                "cat"
             ],
             [
-                249,
+                130,
                 "truck",
                 "automobile"
             ]
@@ -60,319 +60,319 @@
     "exp2": {
         "exp_id": "exp2",
         "exp_name": "Baseline + Batch Normalization",
-        "test_accuracy": 0.10029999911785126,
-        "test_loss": 3.7959933280944824,
-        "precision": 0.04001001001001001,
-        "recall": 0.10029999999999999,
-        "f1_score": 0.018792421553347326,
-        "train_val_gap": 0.5497999712824821,
+        "test_accuracy": 0.7278000116348267,
+        "test_loss": 1.026547908782959,
+        "precision": 0.7283809411343499,
+        "recall": 0.7278,
+        "f1_score": 0.7254089083452226,
+        "train_val_gap": 0.23637503385543823,
         "parameter_count": 358218,
-        "training_time": 61.12227129936218,
+        "training_time": 1160.9125616550446,
         "top_confused": [
             [
-                1000,
-                "airplane",
-                "deer"
-            ],
-            [
-                1000,
+                163,
                 "dog",
-                "deer"
+                "cat"
             ],
             [
-                1000,
-                "frog",
-                "deer"
-            ]
-        ]
-    },
-    "exp3": {
-        "exp_id": "exp3",
-        "exp_name": "Baseline + L2 Regularization",
-        "test_accuracy": 0.46720001101493835,
-        "test_loss": 1.4749178886413574,
-        "precision": 0.46027081462257413,
-        "recall": 0.46720000000000006,
-        "f1_score": 0.4479215900128429,
-        "train_val_gap": -0.045100003480911255,
-        "parameter_count": 356810,
-        "training_time": 42.038506746292114,
-        "top_confused": [
-            [
-                314,
+                137,
                 "cat",
                 "dog"
             ],
             [
-                258,
-                "cat",
-                "frog"
-            ],
-            [
-                233,
-                "truck",
-                "automobile"
-            ]
-        ]
-    },
-    "exp4": {
-        "exp_id": "exp4",
-        "exp_name": "Baseline + Light Augmentation",
-        "test_accuracy": 0.43160000443458557,
-        "test_loss": 1.5639675855636597,
-        "precision": 0.45829202122218105,
-        "recall": 0.4316,
-        "f1_score": 0.42529344666987623,
-        "train_val_gap": -0.013599991798400879,
-        "parameter_count": 356810,
-        "training_time": 36.97534513473511,
-        "top_confused": [
-            [
-                297,
-                "airplane",
-                "ship"
-            ],
-            [
-                279,
+                87,
                 "bird",
-                "deer"
-            ],
-            [
-                266,
-                "frog",
-                "deer"
+                "airplane"
             ]
         ]
     },
     "exp5": {
         "exp_id": "exp5",
         "exp_name": "Baseline + Moderate Augmentation",
-        "test_accuracy": 0.3944000005722046,
-        "test_loss": 1.7149187326431274,
-        "precision": 0.4237509411144469,
-        "recall": 0.39440000000000003,
-        "f1_score": 0.36921988356245994,
-        "train_val_gap": -0.050399988889694214,
+        "test_accuracy": 0.6575000286102295,
+        "test_loss": 0.9771145582199097,
+        "precision": 0.6678437756394463,
+        "recall": 0.6575000000000001,
+        "f1_score": 0.6433751918335153,
+        "train_val_gap": -0.027575016021728516,
         "parameter_count": 356810,
-        "training_time": 54.23207974433899,
+        "training_time": 819.6039633750916,
         "top_confused": [
             [
-                335,
-                "truck",
-                "automobile"
+                258,
+                "automobile",
+                "truck"
             ],
             [
-                300,
+                254,
                 "cat",
                 "dog"
             ],
             [
-                299,
-                "deer",
-                "horse"
-            ]
-        ]
-    },
-    "exp6": {
-        "exp_id": "exp6",
-        "exp_name": "Baseline + Aggressive Augmentation",
-        "test_accuracy": 0.3582000136375427,
-        "test_loss": 1.7904605865478516,
-        "precision": 0.3944526708895759,
-        "recall": 0.3582,
-        "f1_score": 0.32764415602720887,
-        "train_val_gap": -0.0543999969959259,
-        "parameter_count": 356810,
-        "training_time": 64.44498896598816,
-        "top_confused": [
-            [
-                452,
-                "airplane",
-                "ship"
-            ],
-            [
-                341,
-                "deer",
-                "horse"
-            ],
-            [
-                299,
-                "dog",
-                "horse"
-            ]
-        ]
-    },
-    "exp7": {
-        "exp_id": "exp7",
-        "exp_name": "SGD + Momentum (lr=0.01)",
-        "test_accuracy": 0.30140000581741333,
-        "test_loss": 1.9614263772964478,
-        "precision": 0.3971213978028587,
-        "recall": 0.3014,
-        "f1_score": 0.26682651861039736,
-        "train_val_gap": -0.04859998822212219,
-        "parameter_count": 356810,
-        "training_time": 42.586610317230225,
-        "top_confused": [
-            [
-                474,
-                "truck",
-                "ship"
-            ],
-            [
-                396,
-                "airplane",
-                "ship"
-            ],
-            [
-                366,
-                "automobile",
-                "ship"
-            ]
-        ]
-    },
-    "exp8": {
-        "exp_id": "exp8",
-        "exp_name": "RMSprop (lr=0.001)",
-        "test_accuracy": 0.41839998960494995,
-        "test_loss": 1.5801805257797241,
-        "precision": 0.4638489878071286,
-        "recall": 0.4184,
-        "f1_score": 0.40890387404320905,
-        "train_val_gap": -0.021400004625320435,
-        "parameter_count": 356810,
-        "training_time": 42.82261085510254,
-        "top_confused": [
-            [
-                428,
-                "ship",
-                "airplane"
-            ],
-            [
-                339,
-                "bird",
-                "deer"
-            ],
-            [
-                294,
-                "truck",
-                "automobile"
-            ]
-        ]
-    },
-    "exp9": {
-        "exp_id": "exp9",
-        "exp_name": "Adam (lr=0.01)",
-        "test_accuracy": 0.3628000020980835,
-        "test_loss": 1.7177917957305908,
-        "precision": 0.3872411148878664,
-        "recall": 0.3628,
-        "f1_score": 0.3561402180759119,
-        "train_val_gap": -0.043200016021728516,
-        "parameter_count": 356810,
-        "training_time": 40.402947425842285,
-        "top_confused": [
-            [
-                306,
-                "airplane",
-                "ship"
-            ],
-            [
-                260,
-                "truck",
-                "ship"
-            ],
-            [
-                234,
-                "automobile",
-                "ship"
-            ]
-        ]
-    },
-    "exp10": {
-        "exp_id": "exp10",
-        "exp_name": "Adam (lr=0.0001)",
-        "test_accuracy": 0.3578000068664551,
-        "test_loss": 1.8264425992965698,
-        "precision": 0.3644099581430743,
-        "recall": 0.35779999999999995,
-        "f1_score": 0.3409634830251127,
-        "train_val_gap": -0.034600019454956055,
-        "parameter_count": 356810,
-        "training_time": 45.00428295135498,
-        "top_confused": [
-            [
-                437,
-                "airplane",
-                "ship"
-            ],
-            [
-                250,
-                "deer",
-                "cat"
-            ],
-            [
-                217,
-                "truck",
-                "ship"
+                146,
+                "cat",
+                "frog"
             ]
         ]
     },
     "exp11": {
         "exp_id": "exp11",
         "exp_name": "Deeper CNN (Extra Block)",
-        "test_accuracy": 0.4318000078201294,
-        "test_loss": 1.5012058019638062,
-        "precision": 0.44830638005339746,
-        "recall": 0.43179999999999996,
-        "f1_score": 0.41387890753492085,
-        "train_val_gap": -0.036400020122528076,
+        "test_accuracy": 0.7325999736785889,
+        "test_loss": 0.7932613492012024,
+        "precision": 0.7385945418831841,
+        "recall": 0.7326,
+        "f1_score": 0.7307857317700653,
+        "train_val_gap": 0.10037499666213989,
         "parameter_count": 653386,
-        "training_time": 67.2506275177002,
+        "training_time": 1335.8988857269287,
         "top_confused": [
             [
-                405,
+                193,
                 "dog",
-                "horse"
+                "cat"
             ],
             [
-                393,
+                139,
                 "deer",
-                "horse"
+                "bird"
             ],
             [
-                354,
+                129,
                 "cat",
-                "horse"
+                "bird"
             ]
         ]
     },
     "exp12": {
         "exp_id": "exp12",
         "exp_name": "Final Customized CNN",
-        "test_accuracy": 0.3944000005722046,
-        "test_loss": 1.7149187326431274,
-        "precision": 0.4237509411144469,
-        "recall": 0.39440000000000003,
-        "f1_score": 0.36921988356245994,
-        "train_val_gap": -0.050399988889694214,
+        "test_accuracy": 0.6712999939918518,
+        "test_loss": 0.9390103220939636,
+        "precision": 0.6804217856407939,
+        "recall": 0.6713,
+        "f1_score": 0.6651522303116698,
+        "train_val_gap": -0.03962498903274536,
         "parameter_count": 356810,
-        "training_time": 55.59710144996643,
+        "training_time": 874.1188745498657,
         "top_confused": [
             [
-                335,
-                "truck",
-                "automobile"
+                202,
+                "bird",
+                "deer"
             ],
             [
-                300,
+                186,
+                "cat",
+                "frog"
+            ],
+            [
+                179,
+                "cat",
+                "dog"
+            ]
+        ]
+    },
+    "exp3": {
+        "exp_id": "exp3",
+        "exp_name": "Baseline + L2 Regularization",
+        "test_accuracy": 0.7050999999046326,
+        "test_loss": 0.9131951928138733,
+        "precision": 0.7204592469097242,
+        "recall": 0.7051,
+        "f1_score": 0.7033044821835961,
+        "train_val_gap": 0.058949947357177734,
+        "parameter_count": 356810,
+        "training_time": 616.3634395599365,
+        "top_confused": [
+            [
+                160,
+                "cat",
+                "bird"
+            ],
+            [
+                152,
+                "automobile",
+                "truck"
+            ],
+            [
+                136,
+                "airplane",
+                "bird"
+            ]
+        ]
+    },
+    "exp4": {
+        "exp_id": "exp4",
+        "exp_name": "Baseline + Light Augmentation",
+        "test_accuracy": 0.7099999785423279,
+        "test_loss": 0.8466931581497192,
+        "precision": 0.7180673459754247,
+        "recall": 0.7099999999999999,
+        "f1_score": 0.7084599118864523,
+        "train_val_gap": 0.05542498826980591,
+        "parameter_count": 356810,
+        "training_time": 696.944150686264,
+        "top_confused": [
+            [
+                149,
+                "dog",
+                "cat"
+            ],
+            [
+                148,
                 "cat",
                 "dog"
             ],
             [
-                299,
+                144,
+                "airplane",
+                "bird"
+            ]
+        ]
+    },
+    "exp6": {
+        "exp_id": "exp6",
+        "exp_name": "Baseline + Aggressive Augmentation",
+        "test_accuracy": 0.5600000023841858,
+        "test_loss": 1.2371667623519897,
+        "precision": 0.5741606747452185,
+        "recall": 0.56,
+        "f1_score": 0.5403734654825149,
+        "train_val_gap": -0.05274999141693115,
+        "parameter_count": 356810,
+        "training_time": 902.1384477615356,
+        "top_confused": [
+            [
+                267,
+                "cat",
+                "dog"
+            ],
+            [
+                243,
+                "cat",
+                "frog"
+            ],
+            [
+                227,
+                "deer",
+                "frog"
+            ]
+        ]
+    },
+    "exp7": {
+        "exp_id": "exp7",
+        "exp_name": "SGD + Momentum (lr=0.01)",
+        "test_accuracy": 0.6574000120162964,
+        "test_loss": 0.9659781455993652,
+        "precision": 0.6812569416314086,
+        "recall": 0.6574,
+        "f1_score": 0.6542920518527251,
+        "train_val_gap": 0.039674997329711914,
+        "parameter_count": 356810,
+        "training_time": 569.1514084339142,
+        "top_confused": [
+            [
+                213,
+                "cat",
+                "bird"
+            ],
+            [
+                211,
+                "dog",
+                "bird"
+            ],
+            [
+                192,
+                "deer",
+                "bird"
+            ]
+        ]
+    },
+    "exp8": {
+        "exp_id": "exp8",
+        "exp_name": "RMSprop (lr=0.001)",
+        "test_accuracy": 0.7020000219345093,
+        "test_loss": 0.8606536984443665,
+        "precision": 0.7132940745633178,
+        "recall": 0.7020000000000001,
+        "f1_score": 0.7004424008180811,
+        "train_val_gap": 0.052874982357025146,
+        "parameter_count": 356810,
+        "training_time": 624.349850654602,
+        "top_confused": [
+            [
+                199,
+                "dog",
+                "cat"
+            ],
+            [
+                167,
                 "deer",
                 "horse"
+            ],
+            [
+                155,
+                "deer",
+                "bird"
+            ]
+        ]
+    },
+    "exp9": {
+        "exp_id": "exp9",
+        "exp_name": "Adam (lr=0.01)",
+        "test_accuracy": 0.5453000068664551,
+        "test_loss": 1.27643883228302,
+        "precision": 0.5490911531963086,
+        "recall": 0.5452999999999999,
+        "f1_score": 0.5394930600928243,
+        "train_val_gap": 0.03047502040863037,
+        "parameter_count": 356810,
+        "training_time": 663.0485589504242,
+        "top_confused": [
+            [
+                284,
+                "airplane",
+                "ship"
+            ],
+            [
+                230,
+                "cat",
+                "dog"
+            ],
+            [
+                199,
+                "bird",
+                "deer"
+            ]
+        ]
+    },
+    "exp10": {
+        "exp_id": "exp10",
+        "exp_name": "Adam (lr=0.0001)",
+        "test_accuracy": 0.5759999752044678,
+        "test_loss": 1.2018585205078125,
+        "precision": 0.568552192040967,
+        "recall": 0.576,
+        "f1_score": 0.5704335444932834,
+        "train_val_gap": 0.0018000006675720215,
+        "parameter_count": 356810,
+        "training_time": 777.6018149852753,
+        "top_confused": [
+            [
+                225,
+                "cat",
+                "dog"
+            ],
+            [
+                169,
+                "dog",
+                "cat"
+            ],
+            [
+                161,
+                "airplane",
+                "ship"
             ]
         ]
     }

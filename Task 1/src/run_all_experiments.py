@@ -3,6 +3,10 @@ import json
 import time
 import numpy as np
 import tensorflow as tf
+# Optimal CPU threads to keep laptop cool & fast
+tf.config.threading.set_intra_op_parallelism_threads(4)
+tf.config.threading.set_inter_op_parallelism_threads(4)
+
 import pandas as pd
 from data import load_and_preprocess_data, set_seed, SEED
 import models
@@ -33,7 +37,7 @@ def save_metrics_to_cache(metrics):
     except Exception as e:
         print(f"Error caching metrics: {e}")
 
-def run_experiment(exp_id, exp_name, get_model_fn, data, epochs=10, batch_size=128, optimizer='adam', lr=0.001):
+def run_experiment(exp_id, exp_name, get_model_fn, data, epochs=10, batch_size=256, optimizer='adam', lr=0.001):
     """
     Runs a single training/evaluation experiment. Checkpoints result to avoid redundant training.
     """
@@ -111,8 +115,8 @@ def main():
     (x_train, y_train), (x_val, y_val), (x_test, y_test) = data
     
     # Fixed epoch budget
-    EPOCHS = 2
-    BATCH_SIZE = 128
+    EPOCHS = 10
+    BATCH_SIZE = 256
     
     results = {}
     

@@ -35,8 +35,8 @@ def load_and_preprocess_data():
     rng = np.random.RandomState(SEED)
     rng.shuffle(indices)
     
-    train_idx = indices[:10000]
-    val_idx = indices[10000:20000]
+    train_idx = indices[:40000]
+    val_idx = indices[40000:]
     
     x_train = x_train_full[train_idx]
     y_train = y_train_full[train_idx]
